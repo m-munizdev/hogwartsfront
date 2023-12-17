@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+</head>
+<body>
+
+    <h1>Cadastro de Alunos</h1>
+
+    <form id="cadastroForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="button" onclick="cadastrarAluno()">Cadastrar</button>
+    </form>
+
+    <script>
+        function cadastrarAluno() {
+            // Obter os valores dos campos
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Criar um objeto com os dados a serem enviados
+            var dados = {
+                username: username,
+                password: password
+            };
+
+            // Enviar a requisição POST para o servidor
+            fetch('http://localhost:3000/alunos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dados),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Sucesso:', data);
+                // Aqui você pode adicionar lógica adicional após o cadastro ser bem-sucedido
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>
